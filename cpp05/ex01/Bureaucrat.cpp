@@ -30,6 +30,16 @@ std::ostream &operator<<(std::ostream &os, const Bureaucrat &b)
 	return (os);
 }
 
+
+void Bureaucrat::SignForm(Form &form)
+{
+	if (form.isSigned() == true)
+	{
+		std::cout << get_name() << "signed" << form.getName() << std::endl;
+	}
+	else
+		std::cout << get_name() << "couldn't sign" << form.getName()<< "because" << form.Besigned() << std::endl;
+}
 std::string Bureaucrat::get_name(void) const
 {
 	return (this->name);
