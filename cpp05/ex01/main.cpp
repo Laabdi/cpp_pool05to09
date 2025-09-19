@@ -1,28 +1,44 @@
 #include "Bureaucrat.hpp"
 
+using namespace	std;
 
-
-
-int main()
+int	main(void)
 {
-    try {
-        Bureaucrat test("nesta", 0); // or 1140
-        std::cout << test << std::endl;
-    }
-    catch (const std::exception& e) {
-        std::cerr << e.what();
-    }
+	try
+	{
+		Bureaucrat b("Alice", 42);
+		Form f("Tax Form", 50, 100);
+		std::cout << "Form name: " << f.getName() << std::endl;
+		std::cout << "Form signed: " << (f.isSigned() ? "yes" : "no") << std::endl;
+		std::cout << "Form grade to sign: " << f.getGradeToSign() << std::endl;
+		std::cout << "Form grade to execute: " << f.getGradeToExecute() << std::endl;
+		// Try to sign the form
+		try
+		{
+			f.beSigned(b);
+			std::cout << "Form signed by " << b.get_name() << std::endl;
+		}
+		catch (const std::exception &e)
+		{
+			std::cout << b.get_name() << " couldn't sign form because: " << e.what() << std::endl;
+		}
+		std::cout << "Form signed: " << (f.isSigned() ? "yes" : "no") << std::endl;
+		// Bureaucrat's SignForm method
+		b.signForm(f);
+	}
+	catch (const std::exception &e)
+	{
+		std::cout << "Exception: " << e.what() << std::endl;
+	}
+	return (0);
 }
-// int age = 15;
-// try {
-// if (age >= 18) {
-//     cout << "Access granted - you are old enough.";
-// } else {
-//     throw (age);
-// }
-// }
-// catch (int myNum) {
-// cout << "Access denied - You must be at least 18 years old.\n";
-// cout << "Age is: " << myNum << endl;
-// cout << myNum << endl;
-// }    
+//     try {
+//         Bureaucrat b("Alice", 42);
+//         Form f("Tax Form", 50, 100);
+//         std::cout << f << std::endl;
+//         b.SignForm(f);
+//         std::cout << f << std::endl;
+//     }
+//     catch (const std::exception& e) {
+//         std::cerr << e.what();
+//     }
