@@ -12,4 +12,4 @@ class PresidentialPardonForm
     PresidentialPardonForm &operator=(const PresidentialPardonForm &oth);
     ~PresidentialPardonForm();
 
-;
+};
