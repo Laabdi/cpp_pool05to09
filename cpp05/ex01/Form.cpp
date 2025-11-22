@@ -9,6 +9,15 @@ Form::Form(const std::string &Name, const int gradetosign,
 	if (gradeToSign > 150 || gradeToExecute > 150)
 		throw GradeTooLowException();
 }
+Form &Form::operator=(const Form &oth)
+{
+	if(this != &oth)
+	{
+		signature =  oth.signature;
+	}
+	return *this;
+}
+
 std::string Form::getName() const
 {
 	return (name);

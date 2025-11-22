@@ -15,6 +15,7 @@ class Form
   public:
 	Form();
 	Form(const std::string &Name, const int gradetosign,const int gradetoexecute);
+	Form &operator=(const Form &oth);
 	~Form();
 	std::string getName() const;
 	bool isSigned() const;
