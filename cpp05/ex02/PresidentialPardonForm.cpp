@@ -1,4 +1,5 @@
 #include "PresidentialPardonForm.hpp"
+#include "Bureaucrat.hpp"
 
 PresidentialPardonForm::PresidentialPardonForm() : AForm("PresidentialPardonForm", 25, 5), target("") {}
 
@@ -14,12 +15,14 @@ PresidentialPardonForm &PresidentialPardonForm::operator=(const PresidentialPard
     }
     return *this;
 }
+
+PresidentialPardonForm::~PresidentialPardonForm() {}
+
 void PresidentialPardonForm::execute(Bureaucrat const & executor) const
 {
     if (!isSigned())
         throw AForm::GradeTooLowException();
     if (executor.get_grade() > getGradeToExecute())
         throw AForm::GradeTooLowException();
-    
     std::cout << target << " has been pardoned by Zaphod Beeblebrox" << std::endl;
 }

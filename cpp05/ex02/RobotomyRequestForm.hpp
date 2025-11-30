@@ -11,7 +11,6 @@ class RobotomyRequestForm : public AForm
     RobotomyRequestForm(const std::string targ);
     RobotomyRequestForm(const RobotomyRequestForm &oth);
     RobotomyRequestForm &operator=(const RobotomyRequestForm &oth);
-    ~RobotomyRequestForm();
     void  execute(Bureaucrat const & executor)const;
-
+    ~RobotomyRequestForm();
 };
