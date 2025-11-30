@@ -1,7 +1,8 @@
 #pragma once
+#include "AForm.hpp"
 #include <iostream>
 
-class RobotomyRequestForm
+class RobotomyRequestForm : public AForm
 {
     private:
     std::string target;
@@ -11,5 +12,6 @@ class RobotomyRequestForm
     RobotomyRequestForm(const RobotomyRequestForm &oth);
     RobotomyRequestForm &operator=(const RobotomyRequestForm &oth);
     ~RobotomyRequestForm();
+    void  execute(Bureaucrat const & executor)const;
 
 };
