@@ -2,7 +2,7 @@
 #include "Bureaucrat.hpp"
 
 ShrubberyCreationForm::ShrubberyCreationForm() : AForm("",145,137) , target("") {}
-ShrubberyCreationForm::ShrubberyCreationForm(std::string targ) : AForm("ShrubberyCreationForm",145,137) , target(targ) {}
+ShrubberyCreationForm::ShrubberyCreationForm(const std::string &targ) : AForm("ShrubberyCreationForm",145,137) , target(targ) {}
 ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &oth) : AForm(oth) ,target(oth.target) {}
 
 ShrubberyCreationForm &ShrubberyCreationForm::operator=(ShrubberyCreationForm &oth)
