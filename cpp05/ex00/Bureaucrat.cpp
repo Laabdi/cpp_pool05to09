@@ -54,7 +54,7 @@ const char *Bureaucrat::GradeTooLowException::what() const throw()
 {
 return("GRADE TO LOW\n");
 }
-const char *Bureaucrat::GradeTooHighException::.what() const throw()
+const char *Bureaucrat::GradeTooHighException::what() const throw()
 {
     return "GRADE TO HIGH\n";
 }
@@ -65,4 +65,4 @@ Bureaucrat& Bureaucrat::operator=(Bureaucrat &other)
         this->grade = other.grade;
     }
     return *this;
-    }
+}

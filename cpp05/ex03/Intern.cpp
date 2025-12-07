@@ -52,7 +52,7 @@ AForm* Intern::makeForm(const std::string &form_type,const std::string &target_f
     {
         if(forms[i] == form_type)
         {
-            std::cout << "intern creates " << form_type << std::endl;
+            std::cout << "Intern creates " << form_type << std::endl;
             return (ptr[i](target_form));
         }
     }
