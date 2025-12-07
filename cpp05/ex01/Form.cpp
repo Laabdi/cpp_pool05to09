@@ -1,6 +1,6 @@
 #include "Form.hpp"
 
-Form::Form() : name("default"), signature(false), grade_to_sign(150), grade_to_execute(150) {}
+Form::Form() : name("default"), signature(false), gradeToSign(150), gradeToExecute(150) {}
 
 
 Form::Form(const std::string &Name, const int gradetosign,

@@ -1,5 +1,8 @@
 #include "AForm.hpp"
 #include "Bureaucrat.hpp"
+
+AForm::AForm() : name("default"), signature(false), gradeToSign(150), gradeToExecute(150) {}
+
 AForm::AForm(const std::string &Name, const int gradetosign,
 	const int gradetoexecute) : name(Name), signature(false),
 	gradeToSign(gradetosign), gradeToExecute(gradetoexecute)
