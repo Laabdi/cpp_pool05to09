@@ -7,28 +7,39 @@
 
 Base *generate(void)
 {
-    srand (time(NULL));
+    static bool seeded = false;
+    if (!seeded) {
+        srand(time(NULL));
+        seeded = true;
+    }
+    
     int random = rand() % 3;
-    if(random == 0)
+    
+    if (random == 0)
     {
-        A *test;
-        return(test);
+        std::cout << "A" << std::endl;
+        return new A(); 
     }
-    if(random == 1)
+    else if (random == 1)
     {
-         B *test1;
-        return(test1);
+        std::cout << "B" << std::endl;
+        return new B(); 
     }
-    if(random == 2)
+    else
     {
-        C *test2;
-        return(test2);
+        std::cout << "C" << std::endl;
+        return new C();
     }
-
 }
 void identify(Base* p)
 {
-    std::cout <<  << std::endl;
+
+    if (dynamic_cast<A*>(p))
+        std::cout << "A" << std::endl;
+    if (dynamic_cast<B*>(p))
+        std::cout << "B" << std::endl;
+    if (dynamic_cast<C*>(p))
+        std::cout << "C" << std::endl;
 }
 void identify(Base& p)
 {
@@ -36,5 +47,6 @@ void identify(Base& p)
 }
 int main()
 {
-    generate();
+    Base *p = generate();
+    identify(p);
 }
