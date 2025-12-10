@@ -7,11 +7,11 @@
 
 Base *generate(void)
 {
-    static bool seeded = false;
-    if (!seeded) 
+    static bool s = false;
+    if (!s) 
     {
         srand(time(NULL));
-        seeded = true;
+        s = true;
     }
     
     int random = rand() % 3;
