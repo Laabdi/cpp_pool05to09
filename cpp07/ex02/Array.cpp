@@ -4,7 +4,7 @@ template<typename T>
 Array<T>::Array() : ptr(nullptr) , length(0) {}
 
 template<typename T>
-Array<T>::Array(unsigned int n) : ptr(nullptr) , lenght(n) {}
+Array<T>::Array(unsigned int n) : ptr(new(T[length])) , lenght(n) {}
 
 template<typename T>
 Array<T>::Array(const Array &oth) : ptr(oth.ptr) , lenght(oth.ptr) {}
