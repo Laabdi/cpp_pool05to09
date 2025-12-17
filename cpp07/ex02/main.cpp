@@ -24,9 +24,11 @@ int main()
         std::cout << s[i] << ' ';
     std::cout << std::endl;
 
-    try {
+    try 
+    {
         std::cout << a[10] << '\n';
-    } catch (const std::exception &e) {
+    }
+    catch (const std::exception &e) {
         std::cout << "caught: " << e.what() << '\n';
     }
 
