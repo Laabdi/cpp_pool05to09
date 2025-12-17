@@ -3,6 +3,7 @@
 #include <iostream>
 #include <algorithm>
 #include <stdexcept>
+#include <string>
 
 template <typename T>
 void easyfind(T &p,int n)
