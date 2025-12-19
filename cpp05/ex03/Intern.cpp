@@ -23,17 +23,17 @@ Intern::~Intern()
 
 }
 
-AForm* createShrubbery(const std::string& target) 
+AForm* Intern::createShrubbery(const std::string& target) 
 {
     return new ShrubberyCreationForm(target);
 }
 
-AForm* createRobotomy(const std::string& target) 
+AForm* Intern::createRobotomy(const std::string& target) 
 {
     return new RobotomyRequestForm(target);
 }
 
-AForm* createPardon(const std::string& target) 
+AForm* Intern::createPardon(const std::string& target) 
 {
     return new PresidentialPardonForm(target);
 }
@@ -47,13 +47,13 @@ AForm* Intern::makeForm(const std::string &form_type,const std::string &target_f
         "presidential pardon"
     };
     
-    AForm* (*ptr[3])(const std::string &str) = {&createRobotomy,&createShrubbery,&createPardon};
+    AForm* (Intern::*ptr[3])(const std::string &str) = {&createRobotomy,&createShrubbery,&createPardon};
     for(int i = 0;i < 3;i++)
     {
         if(forms[i] == form_type)
         {
             std::cout << "Intern creates " << form_type << std::endl;
-            return (ptr[i](target_form));
+          return (this->*ptr[i])(target_form); 
         }
     }
     std::cerr << "Error : Unkown Type " << std::endl;

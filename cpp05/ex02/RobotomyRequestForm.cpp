@@ -14,17 +14,19 @@ RobotomyRequestForm &RobotomyRequestForm::operator=(const RobotomyRequestForm &o
     return *this;
 }
 
-RobotomyRequestForm::~RobotomyRequestForm() {}
 void RobotomyRequestForm::execute(Bureaucrat const &executor) const
 {
-    if (!isSigned()) throw AForm::GradeTooLowException();
+    if (!isSigned()) 
+    throw AForm::GradeTooLowException();
     if (executor.get_grade() > getGradeToExecute())
-         throw AForm::GradeTooLowException();
+    throw AForm::GradeTooLowException();
     static int counter = 0;
     ++counter;
     std::cout << "Bzzzz... drilling noises..." << std::endl;
     if (counter % 2 == 0)
-        std::cout << target << " has been robotomized successfully" << std::endl;
+    std::cout << target << " has been robotomized successfully" << std::endl;
     else
-        std::cout << "The robotomy of " << target << " failed" << std::endl;
+    std::cout << "The robotomy of " << target << " failed" << std::endl;
 }
+
+RobotomyRequestForm::~RobotomyRequestForm() {}

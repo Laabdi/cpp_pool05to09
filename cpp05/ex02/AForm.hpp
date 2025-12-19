@@ -9,7 +9,6 @@ class AForm
 	bool signature;
 	const int gradeToSign;
 	const int gradeToExecute;
-
   public:
 	AForm();
 	AForm(const std::string &Name, const int gradetosign,const int gradetoexecute);

@@ -13,16 +13,16 @@ Bureaucrat::Bureaucrat(const std::string &Name, int Grade) : name(Name)
 
 		if (Grade > 150)
 		{
-			throw GradeTooHighException();
+			throw GradeTooLowException();
 		}
 		if (Grade < 1)
 		{
-			throw GradeTooLowException();
+			throw GradeTooHighException();
 		}
 		
 	this->grade = Grade;
 }
-Bureaucrat::Bureaucrat(Bureaucrat &other) : name(other.name) , grade(other.grade){}
+Bureaucrat::Bureaucrat(const Bureaucrat &other) : name(other.name) , grade(other.grade){}
 
 std::ostream &operator<<(std::ostream &os, const Bureaucrat &b)
 {
@@ -58,7 +58,7 @@ const char *Bureaucrat::GradeTooHighException::what() const throw()
 {
     return "GRADE TO HIGH\n";
 }
-Bureaucrat& Bureaucrat::operator=(Bureaucrat &other)
+Bureaucrat& Bureaucrat::operator=(const Bureaucrat &other)
 {
     if(this != &other)
     {

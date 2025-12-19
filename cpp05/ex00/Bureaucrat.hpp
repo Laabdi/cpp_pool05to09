@@ -13,7 +13,7 @@ class Bureaucrat
     //constructors
     Bureaucrat();
     Bureaucrat(const std::string& Name, int Grade);
-    Bureaucrat(Bureaucrat &other);
+    Bureaucrat(const Bureaucrat &other);
     ~Bureaucrat();
     //methodes
     std::string get_name(void)const;
@@ -31,7 +31,7 @@ class Bureaucrat
         const char *what() const throw();
 
     };
-    Bureaucrat& operator=(Bureaucrat &other);
+    Bureaucrat& operator=(const Bureaucrat &other);
 };
 
 std::ostream& operator<<(std::ostream& os, const Bureaucrat& b);
