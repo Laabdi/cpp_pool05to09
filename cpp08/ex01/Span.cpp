@@ -10,6 +10,7 @@ Span::Span(const Span &oth)
     N = oth.N;
     array = oth.array;
 }
+Span::~Span() {}
 Span &Span::operator=(const Span &oth)
 {
     if(this != &oth)
