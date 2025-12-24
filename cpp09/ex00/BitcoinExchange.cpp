@@ -2,8 +2,10 @@
 #include <vector>
 #include <cctype>
 #include <algorithm>
+#include <sstream>
 #include "BitcoinExchange.hpp"
-// Helper function to trim whitespace
+
+
 std::string trim(const std::string &str)
 {
     size_t start = str.find_first_not_of(" \t\n\r");
@@ -31,12 +33,12 @@ std::vector<std::string> ft_split_request(const std::string &request, const std:
     parts.push_back(request.substr(start));
     return (parts);
 }
-
-bool parse_date(std::string &date,Info &filler)
+bool is_valid_date(const std::string &date)
 {
     if (date.size() != 10)
         return false;
-    for (int i = 0; i < date.size(); i++)
+    
+    for (size_t i = 0; i < date.size(); i++)
     {
         if (i == 4 || i == 7)
         {
@@ -49,8 +51,8 @@ bool parse_date(std::string &date,Info &filler)
                 return false;
         }
     }
+    
     int year = std::stoi(date.substr(0, 4));
-    // std::cout << year << std::endl;
     int month = std::stoi(date.substr(5, 2));
     int day = std::stoi(date.substr(8, 2));
 
@@ -60,58 +62,150 @@ bool parse_date(std::string &date,Info &filler)
         return false;
     if (day < 1 || day > 31)
         return false;
-    filler.set_day(day);
-    filler.set_month(month);
-    filler.set_year(year);
-    return true;
-}
-
-bool all_digits(std::string &num)
-{
-    for (int i = 0; i < num.size(); i++)
-    {
-        if (!isdigit(num[i]))
-            return false;
-    }
-    return true;
-}
-
-void parse_line(std::string &line,Info &filler)
-{
-    std::vector<std::string> list;
-    list = ft_split_request(line, "|");
-    if(list.size() == 2)
-    {
-        std::string trimmed = trim(list[1]);
-        std::cout << trimmed << std::endl;
-        std::string trimmedd = trim(list[0]);
-        std::cout << trimmedd<< std::endl;
     
-        if (!all_digits(trimmed) || !parse_date(trimmedd,filler))
-            std::cout << "error \n" << std::endl;
-        else
+    return true;
+}
+
+std::map<std::string, float> fill_database(const char *filename)
+{
+    std::map<std::string, float> database;
+    std::ifstream file(filename);
+    
+    if (!file.is_open())
+    {
+        std::cerr << "Error: could not open database file." << std::endl;
+        return database;
+    }
+    
+    std::string line;
+    bool first_line = true;
+    
+    while (std::getline(file, line))
+    {
+        if (first_line)
         {
-            filler.set_value(std::stoi(trimmed.substr(0,1)));
-            std::cout << "success \n" << std::endl;
+            first_line = false;
+            continue;
+        }
+        
+        std::vector<std::string> divided_line = ft_split_request(line, ",");
+        if (divided_line.size() == 2)
+        {
+            try
+            {
+                std::string key = divided_line[0];
+                float value = std::stof(divided_line[1]);
+                database[key] = value;
+            }
+            catch (const std::exception &e)
+            {
+                continue;
+            }
         }
     }
-    else
-    {
-        std::string trimm = trim(line);
-        if (!parse_date(trimm,filler))
-            std::cout << "error \n" << std::endl;
-        else
-            std::cout << "success \n" << std::endl;
-    }
+    
+    file.close();
+    return database;
 }
 
-int main()
+void process_line(const std::string &line, const std::map<std::string, float> &database)
 {
-    std::string date = "2001-12-12 | 3";
-    Info test;
-    parse_line(date,test);
-    std::cout << test.get_day() << std::endl;
-    std::cout << test.get_year() << std::endl;
-    std::cout << test.get_month() << std::endl;
-    std::cout << test.get_value() << std::endl;
+    if (line == "date | value")
+        return;
+    
+    std::vector<std::string> parts = ft_split_request(line, "|");
+    
+    if (parts.size() != 2)
+    {
+        std::cerr << "Error: bad input => " << line << std::endl;
+        return;
+    }
+    
+    std::string date = trim(parts[0]);
+    std::string value_str = trim(parts[1]);
+
+    if (!is_valid_date(date))
+    {
+        std::cerr << "Error: bad input => " << date << std::endl;
+        return;
+    }
+    float value;
+    try
+    {
+        value = std::stof(value_str);
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << "Error: invalid value." << std::endl;
+        return;
+    }
+    if (value < 0)
+    {
+        std::cerr << "Error: not a positive number." << std::endl;
+        return;
+    }
+    
+    if (value > 1000)
+    {
+        std::cerr << "Error: too large a number." << std::endl;
+        return;
+    }
+    auto it = database.lower_bound(date);
+    if (it == database.end() || (it->first != date && it != database.begin()))
+    {
+        if (it == database.end() || it->first != date)
+        {
+            if (it != database.begin())
+                --it;
+            else if (it == database.end())
+            {
+                std::cerr << "Error: no exchange rate available for date." << std::endl;
+                return;
+            }
+        }
+    }
+
+    if (it == database.end())
+    {
+        std::cerr << "Error: no exchange rate available for date." << std::endl;
+        return;
+    }
+    float result = value * it->second;
+    std::cout << date << " => " << value << " = " << result << std::endl;
+}
+
+// Process input file
+void process_input(const char *filename, const std::map<std::string, float> &database)
+{
+    std::ifstream file(filename);  
+    if (!file.is_open())
+    {
+        std::cerr << "Error: could not open file." << std::endl;
+        return;
+    }
+    std::string line;
+    while (std::getline(file, line))
+    {
+        process_line(line, database);
+    }
+    file.close();
+}
+
+int main(int ac, char **av)
+{
+    if (ac != 2)
+    {
+        std::cerr << "Error: could not open file." << std::endl;
+        return 1;
+    }
+    std::map<std::string, float> database = fill_database("data.csv");
+    
+    if (database.empty())
+    {
+        std::cerr << "Error: database is empty." << std::endl;
+        return 1;
+    }
+    process_input(av[1], database);
+    
+    return 0;
 }
