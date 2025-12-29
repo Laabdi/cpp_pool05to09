@@ -48,6 +48,7 @@ void identify(Base& p)
         return;
     }
     catch(std::bad_cast&){}
+
     try 
     {
         dynamic_cast<B&>(p);
@@ -56,6 +57,7 @@ void identify(Base& p)
 
     }    
         catch(std::bad_cast&){}
+
     try 
     {
         dynamic_cast<C&>(p);
@@ -64,6 +66,7 @@ void identify(Base& p)
 
     }
         catch(std::bad_cast&){}
+        
 }
 int main()
 {
