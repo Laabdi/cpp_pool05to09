@@ -19,3 +19,4 @@ public:
     const_iterator end() const;
 };
 
+#include "MutanStack.tpp"

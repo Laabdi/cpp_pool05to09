@@ -9,11 +9,11 @@ int main()
 
     try 
     {
-        easyfind(numbers,55);
+        easyfind(numbers,1);
     }
    catch (const std::exception &e)
     {
-        std::cerr << "Caught exception for value " << e.what() << std::endl;
+        std::cerr << "Caught exception for value :" << e.what() << std::endl;
     }
     return 0;
 }
