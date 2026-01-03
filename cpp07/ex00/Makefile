@@ -1,5 +1,4 @@
-SRC = 	whatever.cpp \
-		main.cpp
+SRC = 	main.cpp
 
 NAME = execute_me
 

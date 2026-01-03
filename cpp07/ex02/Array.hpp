@@ -10,7 +10,7 @@ private:
     T *ptr;
 
 public:
-    Array() : length(0), ptr(nullptr) {}
+    Array() : length(0), ptr(NULL) {}
     Array(unsigned int n) : length(n), ptr(new T[n]()) {}
     Array(const Array &oth) : length(oth.length), ptr(new T[oth.length])
     {
