@@ -150,6 +150,7 @@ void process_line(const std::string &line, const std::map<std::string, float> &d
         std::cerr << "Error: too large a number." << std::endl;
         return;
     }
+    //forbidden
     auto it = database.lower_bound(date);
     if (it == database.end() || (it->first != date && it != database.begin()))
     {
