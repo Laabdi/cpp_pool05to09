@@ -68,3 +68,7 @@ void	Span::addNumber(std::vector<int>::iterator begin, std::vector<int>::iterato
     }
     array.insert(array.end(),begin,end);
 }
+std::vector<int> Span::get_array()
+{
+    return array;
+}
